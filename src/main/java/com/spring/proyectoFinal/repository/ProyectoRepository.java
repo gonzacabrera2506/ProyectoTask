@@ -10,10 +10,12 @@ import com.spring.proyectoFinal.bo.Proyecto;
 
 
 public interface ProyectoRepository extends CrudRepository<Proyecto, Long> {
-
-	@Query(value = "from Proyecto p")
-	public List<Proyecto> buscarProductos();
+	
+	//@Query(value = "from Proyecto p")
+	//public List<Proyecto> buscarProyecto();
+	
 	
 	@Query(value = "from Proyecto p where p.nombre like :nombre")
-	public List<Proyecto> buscarProductos(@Param("nombre") String nombre);
+	public List<Proyecto> buscarProyectoPorNombre(@Param("nombre") String nombre);
+	
 }
