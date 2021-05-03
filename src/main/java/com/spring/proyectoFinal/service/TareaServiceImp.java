@@ -41,13 +41,13 @@ public class TareaServiceImp implements TareaService{
 		
 		Estado estado = estadoRepository.findById(idEstado).get();
 		List<Comentario> comentarios = (List<Comentario>) comentarioRepository.findById(idComentario).get();
-		List<Usuario> usuarios = (List<Usuario>) usuarioRepository.findById(idUsuario).get();
+		Usuario usuarios = usuarioRepository.findById(idUsuario).get();
 		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
 		
 		tarea.setEstado(estado);
 		tarea.setComentarios(comentarios);
-		tarea.setUsuarios(usuarios);
-		//tarea.setProyecto(proyecto);
+		tarea.setUsuario(usuarios);
+		tarea.setProyecto(proyecto);
 		
 		tareaRepository.save(tarea);
 		
@@ -56,8 +56,10 @@ public class TareaServiceImp implements TareaService{
 	}
 
 	@Override
-	public Tarea buscarTareaPorId(Long id) {
-		return tareaRepository.findById(id).get();
+	public TareaDTO buscarTareaPorId(Long id) {
+		Tarea tarea = tareaRepository.findById(id).get();
+		TareaDTO tareaDto = new TareaDTO(tarea);
+		return tareaDto;
 	}
 
 	@Override
@@ -78,6 +80,30 @@ public class TareaServiceImp implements TareaService{
 			tareaDTO.add(new TareaDTO(tarea));
 		}
 		return tareaDTO;
+	}
+
+	@Override
+	public Long agregarUsuarioATarea(Long idProyecto, Long idTarea, Long idUsuario) {
+		Proyecto proyecto = proyectoRepository.findById(idProyecto).get();
+		Tarea tarea = tareaRepository.findById(idTarea).get();
+		Usuario usuario = usuarioRepository.findById(idUsuario).get();
+		Long resultado = 0L;
+		if(proyecto.getTareas().contains(tarea)) {
+			tarea.setUsuario(usuario);
+			tareaRepository.save(tarea);
+			resultado = tarea.getUsuario().getId();
+		}
+		return resultado;
+	}
+
+	@Override
+	public List<Tarea> mostrarTareas() {
+		Iterable<Tarea> tareas = tareaRepository.findAll();
+		List<Tarea> tareasRes = new ArrayList<Tarea>();
+		for (Tarea tarea : tareas) {
+			tareasRes.add(tarea);
+		}
+		return tareasRes;
 	}
 	
 	

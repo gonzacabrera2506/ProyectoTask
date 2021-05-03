@@ -30,8 +30,8 @@ public class Tarea {
 	@JoinColumn(name = "TAREA_ID")
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
-	@ManyToMany
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	@ManyToOne
+	private Usuario usuario;
 	
 	private Long totalHorasAsignadas;
 
@@ -78,12 +78,12 @@ public class Tarea {
 		this.comentarios = comentarios;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public Long getTotalHorasAsignadas() {

@@ -8,11 +8,12 @@ import com.spring.proyectoFinal.rest.TareaDTO;
 public interface TareaService {
 
 	public Long altaTarea(Tarea Tarea, Long idEstado, Long idComentario, Long idUsuario, Long idProyecto);
-	public Tarea buscarTareaPorId(Long id);
+	public TareaDTO buscarTareaPorId(Long id);
 	public void borrarTarea(Long id);
 	public void actualizarTarea(Tarea tarea);
+	public List<Tarea> mostrarTareas();
 	//public List<TareaDTO> mostrarTareasDelProyecto(Long idProyecto);
 	public List<TareaDTO> mostrarTareasDelProyecto(Long idProyecto);
-	  
+	public Long agregarUsuarioATarea(Long idProyecto, Long idTarea, Long idUsuario);
 }
 

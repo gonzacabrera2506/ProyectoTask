@@ -15,7 +15,10 @@ public interface TareaRepository extends CrudRepository<Tarea, Long>{
 	@Query(value = "from Tarea t where t.tipoTarea like :tipoTarea")
 	public List<Tarea> buscarTareaPorNombre(@Param("tipoTarea") Long tipoTarea);
 	*/
-	@Query(value = "from Tarea t where t.proyecto = :id")
+	@Query(value = "from Tarea t where t.usuario.id = :id")
+	public List<Tarea> buscarTareasPorIdUsuario(@Param("id") Long id);
+	
+	@Query(value = "from Tarea t where t.proyecto.id = :id")
 	public List<Tarea> mostrarTareasDelProyecto(@Param("id") Long id);
 	
 }
